@@ -1,6 +1,7 @@
 
 DATASET_ROOT="/home/coco_caption/"
-MODEL_DIR="logs/checkpoint-2-20000"
+MODEL_DIR="inference_models/Oscar"
+OUTPUT_DIR="logs/eval_results"
 
 python oscar/run_captioning.py \
     --data_dir $DATASET_ROOT \
@@ -11,3 +12,4 @@ python oscar/run_captioning.py \
     --num_beams 5 \
     --max_gen_length 20 \
     --eval_model_dir $MODEL_DIR
+    --output_dir $OUTPUT_DIR
