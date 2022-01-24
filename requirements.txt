@@ -1,0 +1,11 @@
+tqdm
+pyyaml
+matplotlib
+requests
+scikit-image
+anytree
+regex
+boto3
+pytorch-transformers==1.0.0
+fvcore
+pycocotools
