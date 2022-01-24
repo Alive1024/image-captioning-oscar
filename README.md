@@ -33,12 +33,33 @@ Image Captioning 指的是输入一张图像，生成由若干个单词组成的
 
 ## 项目文件结构
 ```
-├─oscar               Oscar核心定义代码
-├─oscar_dependencies  模型依赖
-├─pretrained_models   预训练模型
-├─inference_models    推理时需要的模型 (包括提取图像特征的Bottom Up Attenion以及Oscar本身)
-├─scripts             准备环境、训练、推理对应的Shell脚本
-└─objects_vocab.txt   COCO Caption数据集的类别名称
+├─oscar                  Oscar核心定义代码
+|   ├─datasets              数据集相关
+|   |   ├─build.py              用于创建 dataset、data sampler、data loader
+|   |   └─caption_tsv.py        定义数据集类、数据张量化相关
+|   ├─modeling           模型结构定义相关
+|   |   ├─modeling_bert.py      定义用于 Image Captioning 任务的Bert模型
+|   |   └─modeling_utils.py     模型定义辅助代码
+|   ├─utils              其他工具代码
+|   |   ├─cider                 评估指标：CIDEr
+|   |   ├─caption_evaluate.py   针对 Image Captioning 任务的精度评估
+|   |   ├─cbs.py                序列搜索策略：受限束搜索 (Constrained Beam Search)
+|   |   ├─logger.py             日志记录器
+|   |   ├─misc.py               杂项工具
+|   |   ├─tsv_file_ops.py       定义TSV文件操作函数，例如读写、拼接等
+|   |   └─tsv_file.py           定义TSV文件类
+|   ├─infer_on_single.py     在单张图像上进行推理
+|   └─run_captioning.py      训练 & 评估
+|
+├─oscar_dependencies     模型依赖，会在执行 scripts/prepare.sh 时使用
+├─pretrained_models      预训练模型 (由论文作者提供)
+├─inference_models       推理时需要的模型 (包括提取图像特征的Bottom Up Attenion以及Oscar本身)
+├─scripts                准备环境、训练、推理对应的Shell脚本
+|   ├─eval.sh                执行模型评估
+|   ├─prepare.sh             用于在最初准备环境，包括解压缩数据集、安装所需的第三方库、Python依赖等
+|   ├─train_s1.sh            用于模型训练的 Step 1 (Train with cross-entropy loss)
+|   └─train_s2.sh            用于模型训练的 Step 2 (Finetune with CIDEr optimization)
+└─objects_vocab.txt      COCO Caption数据集的类别名称 (用于推理时将从图像中检测到的物体类别ID映射为类别名称)
 ```
 
 
@@ -50,14 +71,22 @@ bash scripts/prepare.sh
 ```
 此脚本将完成准备数据集、安装必要的依赖等一系列工作。
 
-### 在 COCO Caption 的训练集上训练
+### 使用 COCO Caption 训练集进行训练
+
+**步骤1: Train with cross-entropy loss**
 
 在项目根目录下执行：
 ```
-bash scripts/train.sh
+bash scripts/train_s1.sh
+```
+**步骤2: Finetune with CIDEr optimization**
+
+在项目根目录下执行（注意按脚本中的注释修改变量值）：
+```
+bash scripts/train_s2.sh
 ```
 
-### 在 COCO Caption 的测试集上评估
+### 使用 COCO Caption 测试集进行评估
 
 在项目根目录下执行：
 ```
