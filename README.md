@@ -53,7 +53,7 @@ Image Captioning 指的是输入一张图像，生成由若干个单词组成的
 |
 ├─oscar_dependencies     模型依赖，会在执行 scripts/prepare.sh 时使用
 ├─pretrained_models      预训练模型 (由论文作者提供)
-├─inference_models       推理时需要的模型 (包括提取图像特征的Bottom Up Attenion以及Oscar本身)
+├─inference_models       推理时加载的模型权重 (包括提取图像特征的Bottom Up Attenion以及Oscar本身)
 ├─scripts                准备环境、训练、推理对应的Shell脚本
 |   ├─eval.sh                执行模型评估
 |   ├─prepare.sh             用于在最初准备环境，包括解压缩数据集、安装所需的第三方库、Python依赖等
@@ -96,7 +96,7 @@ bash scripts/eval.sh
 ### 推理
 在项目根目录下执行：
 ```
-python oscar/infer_on_single.py --image_path <图像文件的路径>
+python oscar/infer_on_single.py --image_path <图像文件的路径> --eval_model_dir <使用的模型权重所在目录>
 ```
 
 

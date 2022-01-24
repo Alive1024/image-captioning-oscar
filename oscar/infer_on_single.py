@@ -1,4 +1,3 @@
-import os
 import sys
 import os.path as op
 sys.path.insert(0, op.dirname(op.dirname(op.abspath(__file__))))
@@ -8,7 +7,6 @@ import numpy as np
 import cv2
 import torch
 from pytorch_transformers import BertConfig, BertTokenizer
-import detectron2
 from detectron2.engine import DefaultPredictor
 from detectron2.config import get_cfg
 from detectron2.modeling.postprocessing import detector_postprocess
@@ -18,8 +16,8 @@ from oscar.datasets.caption_tsv import CaptionTensorizer
 from oscar.modeling.modeling_bert import BertForImageCaptioning
 from oscar.utils.misc import set_seed, parse_args
 
-# Root of detectron2:
-D2_ROOT = os.path.dirname(os.path.dirname(detectron2.__file__))
+# The root dir of py-bottom-up-attention
+D2_ROOT = op.join(op.dirname(op.dirname(op.abspath(__file__))), 'oscar_dependencies', 'py-bottom-up-attention')
 # Settings for the number of features per image. 
 # To re-create pretrained features with 36 features per image
 NUM_OBJECTS = 36
@@ -164,6 +162,9 @@ def extract_image_features_od_labels(img_path, predictor, vg_classes):
 def infer(img_path, predictor, vg_classes,
           args, model, tokenizer, tensorizer, inputs_param):
 
+    if not op.exists(img_path):
+        raise ValueError(f'The input image {img_path} NOT FOUND.')
+
     features, od_labels = extract_image_features_od_labels(img_path=img_path,
                                                            predictor=predictor,
                                                            vg_classes=vg_classes)
@@ -202,8 +203,6 @@ def infer(img_path, predictor, vg_classes,
 def prepare(run_from_cmd=False, eval_model_dir='',
      bottom_up_attention_model_weights='inference_models/faster_rcnn_from_caffe.pkl', vg_objects_vocab='objects_vocab.txt'):
 
-    if (not op.isdir(eval_model_dir)) or eval_model_dir == '':
-        raise ValueError('Improper argument: `eval_model_dir`')
     if not op.exists(bottom_up_attention_model_weights):
         raise ValueError('Weights for Bottom-Up_Attention NOT FOUND.')
     if not op.exists(vg_objects_vocab):
@@ -220,6 +219,9 @@ def prepare(run_from_cmd=False, eval_model_dir='',
     args.per_gpu_eval_batch_size = 1
     if not run_from_cmd:
         args.eval_model_dir = eval_model_dir
+
+    if (not op.isdir(args.eval_model_dir)) or args.eval_model_dir == '':
+        raise ValueError('Improper argument: `eval_model_dir`')
 
     set_seed(88, 1)
     args = restore_training_settings_while_testing(args)

@@ -20,9 +20,9 @@ source /etc/profile
 cd /workspace/oscar_dependencies/apex
 python setup.py install --cuda_ext --cpp_ext
 
-# Install py-bottom-up-attention (detectron2)
-cd /workspace/oscar_dependencies/py-bottom-up-attention
-python setup.py build develop
+# Install detectron2-0.1 via prebuilt wheel to avoid meeting C++ errors
+cd /workspace/oscar_dependencies
+pip install detectron2-0.1-cp37-cp37m-linux_x86_64.whl
 
 # Install other Python dependecies
 cd /workspace
