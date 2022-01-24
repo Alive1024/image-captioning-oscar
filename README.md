@@ -5,7 +5,7 @@
 Image Captioning 指的是输入一张图像，生成由若干个单词组成的对图像内容的文本描述。  
 典型应用场景包括：图文互搜、图像检索、辅助视觉障碍者等。示例如下图所示:
 
-![Image Captioning Example](./README.assets/captions-splash.jpg)
+![Image Captioning Example](https://oneflow-public.oss-cn-beijing.aliyuncs.com/OneCloud/img/20220112-ZuoYihao-ImageCaptioning/captions-splash.jpg)
 
 ### 常用数据集
 
