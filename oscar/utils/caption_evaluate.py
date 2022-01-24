@@ -13,8 +13,10 @@ import tempfile
 import time
 from typing import Dict, Optional
 
+# Add 'oscar_dependencies' dir to PYTHONPATH
 import sys
-sys.path.append('/workspace/oscar_dependencies')
+sys.path.insert(0, op.join(op.dirname(op.dirname(op.dirname(op.abspath(__file__)))), 'oscar_dependencies'))
+
 from coco_caption.pycocotools.coco import COCO
 from coco_caption.pycocoevalcap.eval import COCOEvalCap
 from .cider.pyciderevalcap.ciderD.ciderD import CiderD
