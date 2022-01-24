@@ -14,7 +14,7 @@ import time
 from typing import Dict, Optional
 
 import sys
-sys.path.append('/home/oscar_dependencies')
+sys.path.append('/workspace/oscar_dependencies')
 from coco_caption.pycocotools.coco import COCO
 from coco_caption.pycocoevalcap.eval import COCOEvalCap
 from .cider.pyciderevalcap.ciderD.ciderD import CiderD
