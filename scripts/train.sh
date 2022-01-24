@@ -4,6 +4,8 @@ DATASET_ROOT="/home/coco_caption/"
 S1_OUTPUT_DIR="logs/"
 S2_OUTPUT_DIR="logs/CIDEr"
 
+source /etc/profile
+
 # Step 1: train with cross-entropy loss
 python oscar/run_captioning.py \
     --data_dir $DATASET_ROOT \

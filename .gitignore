@@ -2,9 +2,9 @@ __pycache__/
 *.pyc
 *.jar
 .vscode/
+oscar_dependencies
 pretrained_models/
 inference_models/
 example_images/
-output/
-cache/
+logs/
 objects_vocab.txt

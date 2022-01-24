@@ -3,6 +3,8 @@ DATASET_ROOT="/home/coco_caption/"
 MODEL_DIR="inference_models/Oscar"
 OUTPUT_DIR="logs/eval_results"
 
+source /etc/profile
+
 python oscar/run_captioning.py \
     --data_dir $DATASET_ROOT \
     --do_test \

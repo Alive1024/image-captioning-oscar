@@ -9,12 +9,12 @@ cp $DATASET_MOUNT_DIR/coco-train-words.p /home/coco_caption
 
 # Install JDK1.8
 cd /workspace/oscar_dependencies/
-cp jdk1.8.0_311 /usr/local/jdk1.8
+cp -r jdk1.8.0_311 /usr/local/jdk1.8
 echo "export JAVA_HOME=/usr/local/jdk1.8">>/etc/profile
 echo "export JRE_HOME=\${JAVA_HOME}/jre">>/etc/profile
 echo "export CLASSPATH=.:\${JAVA_HOME}/lib:\${JRE_HOME}/lib">>/etc/profile
 echo "export PATH=.:\${JAVA_HOME}/bin:\$PATH">>/etc/profile
-/bin/bash -c "source /etc/profile"
+source /etc/profile
 
 # Install apex
 cd /workspace/oscar_dependencies/apex
