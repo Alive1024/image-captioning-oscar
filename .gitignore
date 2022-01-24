@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.jar
+.vscode/
+pretrained_models/
+inference_models/
+example_images/
+output/
+cache/
+objects_vocab.txt
