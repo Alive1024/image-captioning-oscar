@@ -3,7 +3,9 @@
 ## 简介
 
 Image Captioning 指的是输入一张图像，生成由若干个单词组成的对图像内容的文本描述。  
-典型应用场景包括：图文互搜、图像检索、辅助视觉障碍者等。
+典型应用场景包括：图文互搜、图像检索、辅助视觉障碍者等。示例如下图所示:
+
+![Image Captioning Example](./README.assets/captions-splash.jpg)
 
 ### 常用数据集
 
@@ -29,29 +31,48 @@ Image Captioning 指的是输入一张图像，生成由若干个单词组成的
 
 本项目使用 PyTorch 深度学习框架实现了 [Oscar](https://arxiv.org/abs/2004.06165) 模型，支持在Microsoft COCO Caption数据集上进行训练和推理。支持使用 BLEU、METEOR、ROUGE、CIDEr、SPICE 指标进行模型精度评估。
 
-
-### 准备数据集
-
-本项目已挂载数据集压缩包，进行训练或推理前需要对数据进行解压等操作。在项目根目录下执行：
+## 项目文件结构
 ```
-bash scripts/prepare_dataset.sh
+├─oscar               Oscar核心定义代码
+├─oscar_dependencies  模型依赖
+├─pretrained_models   预训练模型
+├─inference_models    推理时需要的模型 (包括提取图像特征的Bottom Up Attenion以及Oscar本身)
+├─README.assets       README.md引用的图片资源
+├─scripts             准备环境、训练、推理对应的Shell脚本
+└─objects_vocab.txt   COCO Caption数据集的类别名称
 ```
 
-### 训练
+
+### 准备环境
+
+在项目根目录下执行：
+```
+bash scripts/prepare.sh
+```
+此脚本将完成准备数据集、安装必要的依赖等一系列工作。
+
+### 在 COCO Caption 的训练集上训练
 
 在项目根目录下执行：
 ```
 bash scripts/train.sh
 ```
 
-### 推理
+### 在 COCO Caption 的测试集上评估
 
 在项目根目录下执行：
 ```
-bash scripts/infer.sh
+bash scripts/eval.sh
 ```
 
+### 推理
+在项目根目录下执行：
+```
+python oscar/infer_on_single.py --image_path <图像文件的路径>
+```
+
+
 ## 参考
-- [Photo Caption](https://en.wikipedia.org/wiki/Photo_caption)
 - [Microsoft-Oscar](https://github.com/microsoft/Oscar)
 - [Microsoft COCO Caption Evaluation](https://github.com/LuoweiZhou/coco-caption)
+- [py-bottom-up-attention](https://github.com/airsplay/py-bottom-up-attention)
