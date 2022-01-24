@@ -37,7 +37,6 @@ Image Captioning 指的是输入一张图像，生成由若干个单词组成的
 ├─oscar_dependencies  模型依赖
 ├─pretrained_models   预训练模型
 ├─inference_models    推理时需要的模型 (包括提取图像特征的Bottom Up Attenion以及Oscar本身)
-├─README.assets       README.md引用的图片资源
 ├─scripts             准备环境、训练、推理对应的Shell脚本
 └─objects_vocab.txt   COCO Caption数据集的类别名称
 ```
